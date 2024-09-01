@@ -1,0 +1,84 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #d5d5db;
+  font-family: "arial";
+  font-size: 13px;
+}
+td {
+  background-color: white;
+  font-family: "arial";
+  font-size: 13px;
+}
+th {
+  background-color: white;
+  font-family: "arial";
+  font-size: 13px;
+}
+th.agencia {
+  background-color: white;
+  color: black;
+  font-family: "arial";
+  font-size: 13px;
+}
+th.index {
+  background-color: white;
+}
+td.agencia {
+  background-color: white;
+  border-radius: 0px;
+  color: black;
+}
+
+.filter-select {
+  width: 100%;
+}
+th[colspan] {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+}
+th.sortable {
+  cursor: pointer;
+}
+th.sortable.th-sort-asc::after {
+  content: '↓';
+}
+th.sortable.th-sort-desc::after {
+  content: "↑";
+}
+th.sortable.th-sort-asc::after,
+th.sortable.th-sort-desc::after {
+  margin-left: 5px;
+}
+th.sortable.th-sort-asc,
+th.sortable.th-sort-desc {
+  background: rgba(0, 0, 0, 0.1);
+}
+.pagination {
+  text-align: right;
+  margin: 10px 0;
+}
+.pagination button {
+  border: 1px solid #ddd;
+  background-color: white;
+  padding: 5px 10px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.pagination button.active {
+  background-color: #d86c00;
+  color: white;
+}
+.pagination button.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
