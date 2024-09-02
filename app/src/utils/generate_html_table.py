@@ -87,6 +87,26 @@ def get_class_info(id, value_wanted, arg_wanted, data_class_list):
     return None
 
 
+dict_farol = {
+    "VERMELHO": {"cor_icone": "red", "icones": "bi bi-x-circle-fill"},
+    "AMARELO": {"cor_icone": "#B68105", "icones": "bi bi-dash-circle-fill"},
+    "VERDE": {"cor_icone": "green", "icones": "bi bi-check-circle-fill"},
+}
+
+
+def ordenar_lista(lista, ordem_desejada):
+    ordem_indices = {elemento: index for index, elemento in enumerate(ordem_desejada)}
+    lista_ordenada = sorted(lista, key=lambda x: ordem_indices.get(x, float("inf")))
+    return lista_ordenada
+
+
+lista = ["a", "b", "c", "d"]
+
+ordem_desejada = ["b", "d", "e", "a", "c"]
+lista_ordenada = ordenar_lista(lista, ordem_desejada)
+print(lista_ordenada)
+
+
 def generate_html_table(
     dataframe: pd.DataFrame,
     df_combined: pd.DataFrame,
