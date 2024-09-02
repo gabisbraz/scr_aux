@@ -22,9 +22,11 @@ from streamlit_extras.dataframe_explorer import dataframe_explorer
 DIR_ROOT = str(Path(__file__).parent.parent)
 sys.path.append(DIR_ROOT)
 
-from main2 import create_pivot_table_with_multindex
-from main4 import merge_de_2_ou_3_bases_removendo_colunas_desnecessarias
-from main10 import generate_html_table
+from app.src.utils.download_to_excel import create_pivot_table_with_multindex
+from app.src.utils.merge_de_2_ou_3 import (
+    merge_de_2_ou_3_bases_removendo_colunas_desnecessarias,
+)
+from app.src.utils.generate_html_table import generate_html_table
 from app.src.data_class.data_class_score import (
     ScoreFarolMap,
     ScorePilarMap,
