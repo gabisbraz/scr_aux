@@ -2,7 +2,7 @@ import pandas as pd
 from streamlit_echarts import st_echarts
 
 
-def create_bar_plot_stacked(df, df_pilar, agencia):
+ def create_bar_plot_stacked(df, df_pilar, agencia):
     df_agencia = df[df["AGENCIA_TEMA"] == agencia]
     df_agencia_pilar = df_pilar[df_pilar["AGENCIA_PILAR"] == agencia]
 
@@ -195,3 +195,60 @@ df_score_tema = pd.read_csv("app/src/data/df_base_score_tema.csv")
 df_score_pilar = pd.read_csv("app/src/data/df_base_score_pilar.csv")
 
 create_bar_plot_stacked(df_score_tema, df_score_pilar, 1)
+
+
+import streamlit as st
+from streamlit_echarts import st_echarts
+
+def create_bar_plot(data):
+    # Extração das categorias e dos valores
+    categorias = list(data.keys())
+    valores = list(data.values())
+
+    # Preparação dos dados para o gráfico
+    series_data = [{
+        "name": "Valor",
+        "type": "bar",
+        "data": valores
+    }]
+
+    # Configuração do gráfico
+    option = {
+        "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+                "type": "shadow"
+            },
+        },
+        "legend": {
+            "show": False  # Não é necessário mostrar a legenda com uma única série
+        },
+        "grid": {
+            "left": "3%",
+            "right": "4%",
+            "bottom": "15%",
+            "containLabel": True,
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "transparent",
+        },
+        "xAxis": {
+            "type": "category",
+            "data": categorias,
+            "axisLabel": {"fontSize": 10},
+            "axisLine": {"show": True},
+            "axisTick": {"show": True}
+        },
+        "yAxis": {
+            "type": "value",
+            "splitLine": {"show": False},
+            "axisLine": {"show": True},
+            "axisTick": {"show": True}
+        },
+        "series": series_data,
+    }
+
+    # Renderiza o gráfico com st_echarts
+    st_echarts(options=option, height="500px")
+
+# Chama a função passando o dict 'data'
+create_bar_plot(data)
