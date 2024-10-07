@@ -225,7 +225,7 @@ dict_cores = {
                     </svg>
                 </div>""",
     None: """<div style="display: flex; align-items: center; padding-right: 5px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="grey" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                <svg xmlns2="http://www.w3.org/2000/svg" width="14" height="14" fill="grey" class="bi bi-circle-fill" viewBox="0 0 16 16">
                 <circle cx="8" cy="8" r="8"/>
                 </svg>
             </div>""",
