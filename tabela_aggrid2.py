@@ -2,7 +2,7 @@ from st_aggrid import AgGrid, GridUpdateMode, AgGridTheme, JsCode
 import pandas as pd
 import streamlit as st
 
-# Exemplo simplificado de df_tabela_farol_pivot
+# Exemplo simplificado de df_tabela_farol_pivot com colunas numéricas
 df_tabela_farol_pivot = pd.DataFrame(
     {
         "AGENCIA": [1, 2, 3],
@@ -10,21 +10,26 @@ df_tabela_farol_pivot = pd.DataFrame(
     }
 )
 
+# Extrair o valor numérico da coluna "TEMA"
+df_tabela_farol_pivot["SCORE"] = df_tabela_farol_pivot["TEMA"].apply(
+    lambda x: float(x.split(" - ")[1])
+)
+
 # Função JavaScript para aplicar estilo de célula com base no texto antes do '-'
 cell_style_js = JsCode(
     """
 function(params) {
-    if (params.value.includes("VERMELHO")) {
+    if (params.data.TEMA.includes("VERMELHO")) {
         return {
             'color': 'red',
             'font-weight': 'bold',
         };
-    } else if (params.value.includes("AMARELO")) {
+    } else if (params.data.TEMA.includes("AMARELO")) {
         return {
             'color': 'orange',
             'font-weight': 'bold',
         };
-    } else if (params.value.includes("VERDE")) {
+    } else if (params.data.TEMA.includes("VERDE")) {
         return {
             'color': 'green',
             'font-weight': 'bold',
@@ -39,20 +44,20 @@ function(params) {
 cell_renderer_js = JsCode(
     """
 function(params) {
-    let val_splited = params.value.split(" - ");
+    let val_splited = params.data.TEMA.split(" - ");
     if (val_splited[0] === "VERMELHO") {
-        return '❌ ' + val_splited[1];
+        return '❌ ' + params.value.toFixed(2);
     } else if (val_splited[0] === "AMARELO") {
-        return '⚠️ ' + val_splited[1];
+        return '⚠️ ' + params.value.toFixed(2);
     } else if (val_splited[0] === "VERDE") {
-        return '✅ ' + val_splited[1];
+        return '✅ ' + params.value.toFixed(2);
     }
-    return val_splited[1];
+    return params.value.toFixed(2);
 }
 """
 )
 
-# Definir as opções de grid, incluindo o cellStyle e cellRenderer
+# Definir as opções de grid, garantindo que a coluna SCORE seja tratada como numérica
 gridOptions = {
     "columnDefs": [
         {
@@ -61,10 +66,12 @@ gridOptions = {
             "pinned": "left",
         },
         {
-            "headerName": "TEMA",
-            "field": "TEMA",
+            "headerName": "SCORE",
+            "field": "SCORE",
+            "type": "numericColumn",  # Definir a coluna como numérica
             "cellStyle": cell_style_js,
             "cellRenderer": cell_renderer_js,
+            "sortable": True,  # Habilitar a ordenação numérica
         },
     ]
 }
@@ -79,5 +86,5 @@ AgGrid(
     allow_unsafe_jscode=True,  # Permitir JavaScript personalizado
 )
 
-# Se você quiser visualizar o resultado da interação
+# Exibir mensagem de sucesso
 st.write("Tabela exibida com sucesso!")
